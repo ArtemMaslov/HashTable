@@ -17,7 +17,7 @@ const size_t MaximumWordSize = 32;
 
 /// @brief Тип элементов списка
 /// Заменить на тип элементов, которые будет использовать список
-typedef Word ListType;
+typedef __m128i ListType;
 
 /// Папка, в которую будут записаны изображения при графическом дампе.
 #define LIST_LOG_IMAGE_FOLDER "_listImgs\\"
@@ -46,18 +46,11 @@ const double ListResizeCoef = 2;
 */
 static inline bool ListComparator(const ListType val1, const ListType val2)
 {
-	if (val1.Size != val2.Size)
-		return false;
-
-	size_t maxSize = val1.Size > val2.Size? val1.Size : val2.Size;
-
-	return strncmp(val1.Data, val2.Data, maxSize) == 0;
-
-	//return memcmp(&val1, &val2, sizeof(ListType)) == 0;
+	return memcmp(&val1, &val2, sizeof(ListType)) == 0;
 }
 
 /// Размер буфера преобразования элемента в строку.
-const size_t ListToStringSize = 32;
+const size_t ListToStringSize = 16;
 
 /**
  * @brief        Преобразовать в строку элемент списка.
