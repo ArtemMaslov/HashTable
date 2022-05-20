@@ -1,0 +1,49 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+
+.vs*
+.ipynb_checkpoints*
+asm_tests.asm
+asm_tests2.asm
+
+asm_tests.asm.bak
+asm_tests2.asm.bak
+сделать.txt.bak
+*/Debug/*
+Debug/*
+x64/*
+HashTable/x64/*
+
+сделать.txt
+сделать.txt.bak

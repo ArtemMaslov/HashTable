@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\HashTable">
+      <UniqueIdentifier>{4a7aa386-7404-4bc8-8a4c-679abccadcc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logs">
+      <UniqueIdentifier>{c8e84f60-7143-4e78-8c7d-704adcf358ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\List">
+      <UniqueIdentifier>{27e12441-e87e-4eef-887e-e589b93b111b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Text">
+      <UniqueIdentifier>{84214574-8596-4b36-8a2f-403154d1169c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HashTable\HashTable.cpp">
+      <Filter>Source Files\HashTable</Filter>
+    </ClCompile>
+    <ClCompile Include="FileIO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Logs\Logs.cpp">
+      <Filter>Source Files\Logs</Filter>
+    </ClCompile>
+    <ClCompile Include="List\List.cpp">
+      <Filter>Source Files\List</Filter>
+    </ClCompile>
+    <ClCompile Include="HashTable\HashTable_Verify.cpp">
+      <Filter>Source Files\HashTable</Filter>
+    </ClCompile>
+    <ClCompile Include="HashTable\HashTable_Data.cpp">
+      <Filter>Source Files\HashTable</Filter>
+    </ClCompile>
+    <ClCompile Include="HashTable\HashTable_Hash.cpp">
+      <Filter>Source Files\HashTable</Filter>
+    </ClCompile>
+    <ClCompile Include="HashTable\HashTable_UnitTests.cpp">
+      <Filter>Source Files\HashTable</Filter>
+    </ClCompile>
+    <ClCompile Include="List\List_UnitTests.cpp">
+      <Filter>Source Files\List</Filter>
+    </ClCompile>
+    <ClCompile Include="List\List_Verify.cpp">
+      <Filter>Source Files\List</Filter>
+    </ClCompile>
+    <ClCompile Include="Text\Text.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Text\Text_Words.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HashTable\HashTable.h">
+      <Filter>Source Files\HashTable</Filter>
+    </ClInclude>
+    <ClInclude Include="FileIO.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Logs\Logs.h">
+      <Filter>Source Files\Logs</Filter>
+    </ClInclude>
+    <ClInclude Include="List\List.h">
+      <Filter>Source Files\List</Filter>
+    </ClInclude>
+    <ClInclude Include="HashTable\_hashTable_private.h">
+      <Filter>Source Files\HashTable</Filter>
+    </ClInclude>
+    <ClInclude Include="HashTable\HashTable_UnitTests.h">
+      <Filter>Source Files\HashTable</Filter>
+    </ClInclude>
+    <ClInclude Include="List\List_Config.h">
+      <Filter>Source Files\List</Filter>
+    </ClInclude>
+    <ClInclude Include="Logs\LogsConfig.h">
+      <Filter>Source Files\Logs</Filter>
+    </ClInclude>
+    <ClInclude Include="HashTable\HashTable_Logs.h">
+      <Filter>Source Files\HashTable</Filter>
+    </ClInclude>
+    <ClInclude Include="List\List_Logs.h">
+      <Filter>Source Files\List</Filter>
+    </ClInclude>
+    <ClInclude Include="List\List_UnitTests.h">
+      <Filter>Source Files\List</Filter>
+    </ClInclude>
+    <ClInclude Include="List\_list_private.h">
+      <Filter>Source Files\List</Filter>
+    </ClInclude>
+    <ClInclude Include="Text\Text.h">
+      <Filter>Source Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="HashTable\HashTable_Hash.h">
+      <Filter>Source Files\HashTable</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <NASM Include="HashTable\HashAsm.asm">
+      <Filter>Source Files\HashTable</Filter>
+    </NASM>
+  </ItemGroup>
+</Project>
