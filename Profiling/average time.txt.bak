@@ -9,9 +9,15 @@ find unoptimized releaseMax
 3. 141 084 мс
 
 find type optimization release
+<<<<<<< HEAD
+1.
+2.
+3.
+=======
 1. 77 847 мс
 2. 77 518 мс
 3. 77 986 мс
+>>>>>>> data_type_optimization
 
 find hash optimization release
 1. 29 753 мс
@@ -36,9 +42,15 @@ insert-remove unoptimized releaseMax
 3. 277 511 мс
 
 insert-remove type optimization release
+<<<<<<< HEAD
+1.
+2.
+3.
+=======
 1. 148 337 мс
 2. 149 892 мс
 3. 148 694 мс
+>>>>>>> data_type_optimization
 
 insert-remove hash optimization release
 1. 50 368 мс
