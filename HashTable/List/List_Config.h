@@ -13,7 +13,7 @@
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 
-const size_t MaximumWordSize = 32;
+const size_t MaximumWordSize = 16;
 
 /// @brief Тип элементов списка
 /// Заменить на тип элементов, которые будет использовать список
@@ -50,7 +50,7 @@ static inline bool ListComparator(const ListType val1, const ListType val2)
 }
 
 /// Размер буфера преобразования элемента в строку.
-const size_t ListToStringSize = 16;
+const size_t ListToStringSize = 17;
 
 /**
  * @brief        Преобразовать в строку элемент списка.

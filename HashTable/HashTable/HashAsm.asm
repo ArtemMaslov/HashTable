@@ -1,4 +1,4 @@
-global HashTableAsmHashCRC32
+global HashTable_HashCRC32_Asm
 
 section .text
 
@@ -11,7 +11,7 @@ section .text
 ;
 ; Destr: rax
 ;---------------------------------------------------------------
-HashTableAsmHashCRC32:
+HashTable_HashCRC32_Asm:
 		xor		eax, eax
 
 		crc32	rax, qword [rcx]

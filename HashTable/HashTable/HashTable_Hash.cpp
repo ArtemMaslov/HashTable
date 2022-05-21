@@ -39,32 +39,32 @@ size_t HashTable_HashLength(const ListType* element)
 {
 	assert(element);
 
-	return strnlen((char*)element, 16);
+	return strnlen((char*)element, MaximumWordSize);
 }
 
 size_t HashTable_HashCharSum(const ListType* element)
 {
 	assert(element);
 
-	const char* data = (char*)element;
+	const char*  data = (char*)element;
 
 	size_t hash = 0;
 
-	for (size_t st = 0; *data && st < 16; st++)
+	for (size_t st = 0; data[st] && st < MaximumWordSize; st++)
 		hash += data[st];
 
 	return hash;
 }
 
-size_t HashTableHash_Ror(const ListType* element)
+size_t HashTable_HashRor(const ListType* element)
 {
 	assert(element);
 
-	const char* data = (char*)element;
+	const char*  data = (char*)element;
 
-	size_t hash =  (unsigned char)data[0];
+	size_t hash = (unsigned char)data[0];
 
-	for (size_t st = 1; *data && st < 16; st++)
+	for (size_t st = 1; data[st] && st < MaximumWordSize; st++)
 	{
 		hash = ((hash & 1) << (8 * sizeof(size_t) - 1)) | (hash >> 1);
 
@@ -74,12 +74,13 @@ size_t HashTableHash_Ror(const ListType* element)
 	return hash;
 }
 
-size_t HashTableHash_CRC32_C(const ListType* element)
+size_t HashTable_HashCRC32_C(const ListType* element)
 {
 	assert(element);
 
-	static bool inited = false;
+	static bool   inited         = false;
 	static size_t crc_table[256] = { 0 };
+
 	size_t hash = 0;
 
 	if (!inited)
@@ -97,15 +98,15 @@ size_t HashTableHash_CRC32_C(const ListType* element)
 
 	hash = 0xFFFFFFFFUL;
 
-	const char*  data = (const char*)element;
+	const char*  data = (char*)element;
 
-	for (size_t st = 0; st < 16; st++)
+	for (size_t st = 0; data[st] && st < MaximumWordSize; st++)
 		hash = crc_table[(hash ^ data[st]) & 0xFF] ^ (hash >> 8);
 
 	return (hash ^ 0xFFFFFFFFUL);
 }
 
-size_t HashTable_CRC32_Intrin(const ListType* element)
+size_t HashTable_HashCRC32_Intrin(const ListType* element)
 {
 	assert(element);
 

@@ -19,17 +19,18 @@
 /**
  * @brief Выделить дополнительную память для массива слов.
  * 
- * @param text        Указатель на структуру Text.
+ * @param text        Указатель на структуру TextAnalyzer.
  * @param newCapacity Размер, который требуется выделить.
 */
-static void TextAllocWords(Text* text, const size_t newCapacity);
+static void TextAllocWords(TextAnalyzer* text, const size_t newCapacity);
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 
-void TextParseIntoWordsDir(Text* text, const char* folderPath, const size_t maximumWordSize)
+void TextParseIntoWordsDirectory(TextAnalyzer* text, const char* folderPath, const size_t maximumWordSize)
 {
 	assert(text);
+	assert(folderPath);
 
 	WIN32_FIND_DATA fileData = {};
 
@@ -55,32 +56,24 @@ void TextParseIntoWordsDir(Text* text, const char* folderPath, const size_t maxi
 		if (text->Status != TEXT_ERR_NO_ERRORS)
 			break;
 
-		TextParseIntoWords(text, maximumWordSize);
-
-		TextClearRawData(text);
-
 	} while (FindNextFile(handle, &fileData));
+
+	TextParseIntoWords(text, maximumWordSize);
 
 	LOG_DBG("File parsed");
 
 	FindClose(handle);
 }
 
-void TextParseIntoWords(Text* text, const size_t maxWordLength)
+void TextParseIntoWords(TextAnalyzer* text, const size_t maxWordLength)
 {
 	assert(text);
-	assert(text->RawData);
+	assert(text->Texts);
 
 	//***\\---//***\\-----//***\\---//***\\-----//*****\\-----//***\\---//***\\-----//***\\---//***\\
 
-	char*   wordStart   = nullptr;
-	size_t  wordSize    = 0;
-
 	size_t  wordIndex   = text->WordsSize;
 	bool    wordStarted = false;
-
-	size_t  dataSize    = text->RawDataSize;
-	char*   data        = text->RawData;
 
 	//***\\---//***\\-----//***\\---//***\\-----//*****\\-----//***\\---//***\\-----//***\\---//***\\
 	
@@ -92,40 +85,53 @@ void TextParseIntoWords(Text* text, const size_t maxWordLength)
 		return;
 
 	//***\\---//***\\-----//***\\---//***\\-----//*****\\-----//***\\---//***\\-----//***\\---//***\\
+	
+	const size_t textsCount = text->TextsSize;
+	const Text*  texts      = text->Texts;
+	      Word*  words      = text->Words;
 
-	while (*data)
+	for (size_t st = 0; st < textsCount; st++)
 	{
-		if (wordStarted == false)
-		{
-			if (IS_LETTER(*data))
-			{
-				wordStart   = data;
-				wordSize    = 1;
+		size_t wordSize    = 0;
+		bool   wordStarted = false;
+		char*  wordStart   = nullptr;
 
-				wordStarted = true;
-			}
-		}
-		else
+		char*  data        = texts[st].Data;
+
+		while (*data)
 		{
-			if (IS_LETTER(*data))
+			if (wordStarted == false)
 			{
-				wordSize++;
+				if (IS_LETTER(*data))
+				{
+					wordStart   = data;
+					wordSize    = 1;
+
+					wordStarted = true;
+				}
 			}
 			else
 			{
-				if (wordSize <= maxWordLength)
+				if (IS_LETTER(*data))
 				{
-					text->Words[wordIndex].Data = wordStart;
-					text->Words[wordIndex].Size = wordSize;
-
-					wordIndex++;
+					wordSize++;
 				}
+				else
+				{
+					if (wordSize <= maxWordLength)
+					{
+						words[wordIndex].Data = wordStart;
+						words[wordIndex].Size = wordSize;
 
-				wordStarted = false;
+						wordIndex++;
+					}
+
+					wordStarted = false;
+				}
 			}
-		}
 
-		data++;
+			data++;
+		}
 	}
 
 	text->WordsSize = wordIndex;
@@ -134,44 +140,51 @@ void TextParseIntoWords(Text* text, const size_t maxWordLength)
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 
-size_t TextCountWords(const Text* text, const size_t maxWordLength)
+size_t TextCountWords(const TextAnalyzer* text, const size_t maxWordLength)
 {
 	assert(text);
 
 	//***\\---//***\\-----//***\\---//***\\-----//*****\\-----//***\\---//***\\-----//***\\---//***\\
 
 	size_t wordsCount = 0;
-	size_t wordSize   = 0;
 
-	bool wordStarted = false;
-	const char* data = text->RawData;
+	const size_t textsCount = text->TextsSize;
+	const Text*  texts      = text->Texts;
 
-	//***\\---//***\\-----//***\\---//***\\-----//*****\\-----//***\\---//***\\-----//***\\---//***\\
-
-	while (*data)
+	for (size_t st = 0; st < textsCount; st++)
 	{
-		if (wordStarted == false)
-		{
-			if (IS_LETTER(*data))
-			{
-				wordSize    = 1;
-				wordStarted = true;
-			}
-		}
-		else
-		{
-			if (!IS_LETTER(*data))
-			{
-				if (wordSize <= maxWordLength)
-					wordsCount++;
+		size_t wordSize    = 0;
+		bool   wordStarted = false;
 
-				wordStarted = false;
+		const char* data = texts[st].Data;
+
+		//***\\---//***\\-----//***\\---//***\\-----//*****\\-----//***\\---//***\\-----//***\\---//***\\
+
+		while (*data)
+		{
+			if (wordStarted == false)
+			{
+				if (IS_LETTER(*data))
+				{
+					wordSize    = 1;
+					wordStarted = true;
+				}
 			}
 			else
-				wordSize++;
-		}
+			{
+				if (!IS_LETTER(*data))
+				{
+					if (wordSize <= maxWordLength)
+						wordsCount++;
 
-		data++;
+					wordStarted = false;
+				}
+				else
+					wordSize++;
+			}
+
+			data++;
+		}
 	}
 
 	//***\\---//***\\-----//***\\---//***\\-----//*****\\-----//***\\---//***\\-----//***\\---//***\\
@@ -179,7 +192,7 @@ size_t TextCountWords(const Text* text, const size_t maxWordLength)
 	return wordsCount;
 }
 
-static void TextAllocWords(Text* text, const size_t newCapacity)
+static void TextAllocWords(TextAnalyzer* text, const size_t newCapacity)
 {
 	assert(text);
 

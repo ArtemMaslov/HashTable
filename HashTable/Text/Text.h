@@ -15,7 +15,10 @@ enum TextErrors
 	TEXT_ERR_MEMORY    = 1 << 1,
 
 	/// Ошибка работы с файлом.
-	TEXT_ERR_FILE      = 1 << 2
+	TEXT_ERR_FILE      = 1 << 2,
+
+	/// Попытка добавить текст при TextsSize == TextsCount.
+	TEXT_ERR_OVERFLOW  = 1 << 3
 };
 
 /// Структура слова.
@@ -31,20 +34,30 @@ struct Word
 
 struct Text
 {
-	/// Размер массива RawData.
-	size_t RawDataSize;
-	/// Указатель на текст.
-	char*  RawData;
+	/// Размер текста.
+	size_t Size;
+	/// Указатель на начало текста. Текст должен заканчиваться '\0'
+	char*  Data;
+};
+
+struct TextAnalyzer
+{
+	/// Текущее количество текстов.
+	size_t  TextsSize;
+	/// Максимальное количество текстов.
+	size_t  TextsCount;
+	/// Тексты.
+	Text*   Texts;
 
 	/// Текущий размер массива, то есть текущее количество слов в массиве.
-	size_t WordsSize;
+	size_t  WordsSize;
 	/// Вместительность массива, размер доступной памяти.
-	size_t WordsCapacity;
+	size_t  WordsCapacity;
 	/// Массив слов.
-	Word*  Words;
+	Word*   Words;
 
 	/// Состояние структуры.
-	int    Status;
+	int     Status;
 };
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
@@ -53,65 +66,58 @@ struct Text
 /**
  * @brief Конструктор текста.
  * 
- * @param text          Указатель на структуру Text.
+ * @param text          Указатель на структуру TextAnalyzer.
  * @param wordsCapacity Ожидаемое количество слов в тексте.
  * 
  * @return TextErrors.
 */
-int TextConstructor(Text* text, const size_t wordsCapacity);
+int TextConstructor(TextAnalyzer* text, const size_t wordsCapacity, const size_t textsCapacity);
 
 /**
  * @brief          Прочитать файл.
  *
- * @param text     Указатель на структуру Text.
+ * @param text     Указатель на структуру TextAnalyzer.
  * @param fileName Имя файла.
 */
-void TextReadFile(Text* text, const char* fileName);
+int TextReadFile(TextAnalyzer* text, const char* fileName);
 
 /**
  * @brief Деструктор текста. Очищает всю структуру.
  * 
- * @param text Указатель на структуру Text.
+ * @param text Указатель на структуру TextAnalyzer.
 */
-void TextDestructor(Text* text);
-
-/**
- * @brief Очищает массив RawData и связанные с ним поля.
- * 
- * @param text Указатель на структуру Text.
-*/
-void TextClearRawData(Text* text);
+void TextDestructor(TextAnalyzer* text);
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 
 /**
- * @brief Разбить текст на слова и сохранить их в Text.Words.
+ * @brief Разбить текст на слова и сохранить их в TextAnalyzer.Words.
  * 
- * @param text          Указатель на структуру Text.
+ * @param text          Указатель на структуру TextAnalyzer.
  * @param maxWordLength Максимальная длина слова, слова большей длины игнорируются.
 */
-void TextParseIntoWords(Text* text, const size_t maxWordLength);
+void TextParseIntoWords(TextAnalyzer* text, const size_t maxWordLength);
 
 /**
  * @brief Прочитать все файлы из директории, разбить прочитанные тексты на слова и
  * сохранить все слова в памяти.
  *
- * @param text            Указатель на структуру Text.
+ * @param text            Указатель на структуру TextAnalyzer.
  * @param folderPath      Строка - путь к директории с файлами.
  * @param maximumWordSize Максимальная длина слова, слова большей длины игнорируются.
 */
-void TextParseIntoWordsDir(Text* text, const char* folderPath, const size_t maximumWordSize);
+void TextParseIntoWordsDirectory(TextAnalyzer* text, const char* folderPath, const size_t maximumWordSize);
 
 /**
  * @brief Посчитать количество слов в тексте.
  *
- * @param text          Указатель на структуру Text.
+ * @param text          Указатель на структуру TextAnalyzer.
  * @param maxWordLength Максимальная длина слова, слова большей длины игнорируются.
  *
  * @return Количество слов в тексте.
 */
-size_t TextCountWords(const Text* text, const size_t maxWordLength);
+size_t TextCountWords(const TextAnalyzer* text, const size_t maxWordLength);
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\

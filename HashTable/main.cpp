@@ -17,9 +17,9 @@ int main(int argc, char* argv[])
 
 	//TestHashTable_Sheakspear();
 
-	TestHashTable_OptimizationFind();
+	//TestHashTable_OptimizationFind();
 
-	//TestHashTable_OptimizationInsertRemove();
+	TestHashTable_OptimizationInsertRemove();
 
 	LogsDestructor();
 }

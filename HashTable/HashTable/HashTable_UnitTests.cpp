@@ -22,30 +22,40 @@ struct WordsArray128
 	size_t Size;
 };
 
+const size_t TextsCount = 42;
+
 /**
- * @brief Добавить все слова из Text (текст должен быть предварительно разбит на слова).
+ * @brief Добавить все слова из TextAnalyzer (текст должен быть предварительно разбит на слова).
  *
  * @param table Указатель на хеш-таблицу.
- * @param text  Указатель на структуру Text.
+ * @param words Указатель на массив слов.
 */
 static void HashTableLoadWordsIntoTable(HashTable* table, WordsArray128* words);
 
 /**
  * @brief Переводит слова из структуры Text в массив __m128i.
  * 
- * @param words Указатель на массив 
- * @param text  Указатель на структуру Text.
+ * @param words Указатель на массив слов.
+ * @param text  Указатель на структуру TextAnalyzer.
  * 
  * @return HashTableError.
 */
-static int ConvertWordsType(WordsArray128* words, Text* text);
+static int ConvertWordsType(WordsArray128* words, TextAnalyzer* text);
 
 /**
  * @brief Очищает массив слов __m128i.
  * 
- * @param words Указатель на массив.
+ * @param words Указатель на массив слов.
 */
 static void WordsArrayDestructor(WordsArray128* words);
+
+/**
+ * @brief Добавить все слова из текстов в хеш-таблицу.
+ * 
+ * @param table Указатель на хеш-таблицу.
+ * @param text  Указатель на структуру TextAnalyzer.
+*/
+static void HashTableLoadWordsIntoTable(HashTable* table, TextAnalyzer* text);
 
 #define CLEAR_AND_RETURN goto clear_and_return
 
@@ -56,7 +66,7 @@ void TestHashTable_Sheakspear()
 {
 	HashTable     table = {};
 
-	Text          text  = {};
+	TextAnalyzer  text  = {};
 
 	WordsArray128 words = {};
 
@@ -68,25 +78,25 @@ void TestHashTable_Sheakspear()
 		HashTable_HashLetter,
 		HashTable_HashLength,
 		HashTable_HashCharSum,
-		HashTableHash_Ror,
-		HashTableHash_CRC32_C
+		HashTable_HashRor,
+		HashTable_HashCRC32_C
 	};
 
 	size_t* hash_data = nullptr;
 
 	FILE*   outFile   = nullptr;
 
-	HashTableConstructor(&table, DefaultListCount, DefaultListCapacity, HashTableHash_CRC32_C);
+	HashTableConstructor(&table, DefaultListCount, DefaultListCapacity, HashTable_HashCRC32_C);
 
 	if (table.Status != HASH_TABLE_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
 
-	TextConstructor(&text, DefaultWordsCapacity);
+	TextConstructor(&text, DefaultWordsCapacity, TextsCount);
 
 	if (text.Status != TEXT_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
 
-	TextParseIntoWordsDir(&text, "tests\\*.txt", 32);
+	TextParseIntoWordsDirectory(&text, "tests\\*.txt", 32);
 
 	if (text.Status != HASH_TABLE_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
@@ -149,21 +159,21 @@ void TestHashTable_OptimizationFind()
 {
 	HashTable     table = {};
 
-	Text          text  = {};
+	TextAnalyzer  text  = {};
 
 	WordsArray128 words = {};
 
-	HashTableConstructor(&table, DefaultListCount, DefaultListCapacity, HashTable_CRC32_Intrin);
+	HashTableConstructor(&table, DefaultListCount, DefaultListCapacity, HashTable_HashCRC32_C);
 
 	if (table.Status != HASH_TABLE_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
 
-	TextConstructor(&text, DefaultWordsCapacity);
+	TextConstructor(&text, DefaultWordsCapacity, TextsCount);
 
 	if (text.Status != TEXT_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
 
-	TextParseIntoWordsDir(&text, "tests\\*.txt", MaximumWordSize);
+	TextParseIntoWordsDirectory(&text, "tests\\*.txt", MaximumWordSize);
 
 	if (ConvertWordsType(&words, &text) != HASH_TABLE_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
@@ -179,7 +189,7 @@ void TestHashTable_OptimizationFind()
 	{
 		const size_t wordsCount = words.Size;
 	
-		for (size_t st1 = 0; st1 < 5000; st1++)
+		for (size_t st1 = 0; st1 < 1000; st1++)
 		{
 			for (size_t st = 0; st < wordsCount; st++)
 			{
@@ -206,21 +216,21 @@ void TestHashTable_OptimizationInsertRemove()
 {
 	HashTable     table = {};
 
-	Text          text  = {};
+	TextAnalyzer  text  = {};
 
 	WordsArray128 words = {};
 
-	HashTableConstructor(&table, DefaultListCount, DefaultListCapacity, HashTable_CRC32_Intrin);
+	HashTableConstructor(&table, DefaultListCount, DefaultListCapacity, HashTable_HashCRC32_C);
 
 	if (table.Status != HASH_TABLE_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
 
-	TextConstructor(&text, DefaultWordsCapacity);
+	TextConstructor(&text, DefaultWordsCapacity, TextsCount);
 
 	if (text.Status != TEXT_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
 
-	TextParseIntoWordsDir(&text, "tests\\*.txt", MaximumWordSize);
+	TextParseIntoWordsDirectory(&text, "tests\\*.txt", MaximumWordSize);
 
 	if (ConvertWordsType(&words, &text) != HASH_TABLE_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
@@ -236,7 +246,7 @@ void TestHashTable_OptimizationInsertRemove()
 	{
 		const size_t wordsCount = words.Size;
 
-		for (size_t st = 0; st < 5000; st++)
+		for (size_t st1 = 0; st1 < 1000; st1++)
 		{
 			for (size_t st = 0; st < wordsCount; st++)
 			{
@@ -248,7 +258,7 @@ void TestHashTable_OptimizationInsertRemove()
 				HashTableInsert(&table, &words.Data[st]);
 			}
 
-			printf("%zd\n", st);
+			printf("%zd\n", st1);
 		}
 	}
 
@@ -288,7 +298,7 @@ static void HashTableLoadWordsIntoTable(HashTable* table, WordsArray128* words)
 	LOG_HASH_TABLE_DBG("Data loaded");
 }
 
-static int ConvertWordsType(WordsArray128* words, Text* text)
+static int ConvertWordsType(WordsArray128* words, TextAnalyzer* text)
 {
 	LOG_HASH_TABLE_TRACE_FUNC_1;
 
@@ -299,7 +309,7 @@ static int ConvertWordsType(WordsArray128* words, Text* text)
 
 	const size_t wordsSize = text->WordsSize;
 
-	const Word* textWords = text->Words;
+	const Word* textWords  = text->Words;
 
 	//***\\---//***\\-----//***\\---//***\\-----//*****\\-----//***\\---//***\\-----//***\\---//***\\
 
