@@ -1,0 +1,51 @@
+find unoptimized release
+1. 154 836 мс
+2. 159 009 мс
+3. 154 505 мс
+
+find unoptimized releaseMax
+1. 140 005 мс
+2. 139 716 мс
+3. 141 084 мс
+
+find type optimization release
+1. 77 847 мс
+2. 77 518 мс
+3. 77 986 мс
+
+find hash optimization release
+1. 29 753 мс
+2. 29 567 мс
+3. 29 700 мс
+
+find hash optimization releaseMax
+1. 19 813 мс
+2. 19 842 мс
+3. 20 495 мс
+
+
+
+insert-remove unoptimized release
+1. 279 576 мс
+2. 283 304 мс
+3. 280 749 мс
+
+insert-remove unoptimized releaseMax
+1. 270 763 мс
+2. 259 610 мс
+3. 277 511 мс
+
+insert-remove type optimization release
+1.  мс
+2.  мс
+3.  мс
+
+insert-remove hash optimization release
+1. 50 368 мс
+2. 51 369 мс
+3. 50 233 мс
+
+insert-remove hash optimization releaseMax
+1. 43 781 мс
+2. 43 878 мс
+3. 43 446 мс
