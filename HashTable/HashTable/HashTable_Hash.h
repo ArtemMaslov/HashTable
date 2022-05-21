@@ -49,7 +49,7 @@ size_t HashTable_HashCharSum(const ListType* element);
  *
  * @return Значение хеш-функции. Не ограничено размером хеш-таблицы.
 */
-size_t HashTableHash_Ror(const ListType* element);
+size_t HashTable_HashRor(const ListType* element);
 
 /**
  * @brief CRC-32, реализация на C.
@@ -58,7 +58,7 @@ size_t HashTableHash_Ror(const ListType* element);
  *
  * @return Значение хеш-функции. Не ограничено размером хеш-таблицы.
 */
-size_t HashTableHash_CRC32_C(const ListType* element);
+size_t HashTable_HashCRC32_C(const ListType* element);
 
 /**
  * @brief CRC-32, реализация с помощью intrinsic function.
@@ -67,7 +67,7 @@ size_t HashTableHash_CRC32_C(const ListType* element);
  *
  * @return Значение хеш-функции. Не ограничено размером хеш-таблицы.
 */
-size_t HashTable_CRC32_Intrin(const ListType* element);
+size_t HashTable_HashCRC32_Intrin(const ListType* element);
 
 /**
  * @brief CRC-32, ассемблерная реализация.
@@ -76,7 +76,7 @@ size_t HashTable_CRC32_Intrin(const ListType* element);
  *
  * @return Значение хеш-функции. Не ограничено размером хеш-таблицы.
 */
-extern "C" size_t HashTableAsmHashCRC32(const ListType* element);
+extern "C" size_t HashTable_HashCRC32_Asm(const ListType* element);
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\

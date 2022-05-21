@@ -11,7 +11,7 @@
 const size_t DefaultListCount = 1500;
 /// Стандартная вместительность списков.
 const size_t DefaultListCapacity = 1000;
-/// Стандартное количество слов для структуры Text.
+/// Стандартное количество слов для структуры TextAnalyzer.
 const size_t DefaultWordsCapacity = 1000000;
 
 struct HashTable

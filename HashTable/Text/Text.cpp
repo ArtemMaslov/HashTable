@@ -9,15 +9,26 @@
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 
-int TextConstructor(Text* text, const size_t wordsCapacity)
+int TextConstructor(TextAnalyzer* text, const size_t wordsCapacity, const size_t textsCapacity)
 {
 	assert(text);
-
-	text->RawDataSize   = 0;
-	text->RawData       = nullptr;
-
+	assert(textsCapacity);
+	
 	text->Status        = TEXT_ERR_NO_ERRORS;
 
+	text->TextsSize     = 0;
+	text->TextsCount = textsCapacity;
+	text->Texts         = (Text*)calloc(textsCapacity, sizeof(Text));
+
+	if (!text->Texts)
+	{
+		LOG_ERR_MEMORY;
+
+		text->Status |= TEXT_ERR_MEMORY;
+		
+		return text->Status;
+	}
+							    
 	text->WordsSize     = 0;
 	text->WordsCapacity = wordsCapacity;
 	text->Words         = (Word*)calloc(wordsCapacity, sizeof(Word));
@@ -34,45 +45,63 @@ int TextConstructor(Text* text, const size_t wordsCapacity)
 	return text->Status;
 }
 
-void TextDestructor(Text* text)
+void TextDestructor(TextAnalyzer* text)
 {
 	assert(text);
+
+	const size_t textsCount = text->TextsCount;
+	
+	Text* texts = text->Texts;
+
+	for (size_t st = 0; st < textsCount; st++)
+	{
+		free(texts[st].Data);
+
+		texts[st].Size  = 0;
+		texts[st].Data  = nullptr;
+	}
+
+	free(text->Texts);
+
+	text->TextsCount    = 0;
+	text->Texts         = nullptr;
+
+	free(text->Words);
 
 	text->WordsCapacity = 0;
 	text->WordsSize     = 0;
 
 	text->Status        = TEXT_ERR_NO_ERRORS;
-
-	TextClearRawData(text);
-
-	free(text->Words);
-}
-
-void TextClearRawData(Text* text)
-{
-	assert(text);
-
-	free(text->RawData);
-
-	text->RawData     = nullptr;
-	text->RawDataSize = 0;
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 
-void TextReadFile(Text* text, const char* fileName)
+int TextReadFile(TextAnalyzer* text, const char* fileName)
 {
 	assert(text);
 	assert(fileName);
+
+	const size_t textsSize = text->TextsSize;
+
+	if (textsSize > text->TextsCount)
+	{
+		LOG_ERR("Попытка добавить текст в заполненную структуру TextAnalyzer.");
+
+		text->Status = TEXT_ERR_OVERFLOW;
+
+		return text->Status;
+	}
 
 	FILE* file = fopen(fileName, "r");
 
 	if (!file)
 	{
 		LOG_F_ERR("Ошибка открытия файла \"%s\"", fileName);
+
 		text->Status = TEXT_ERR_FILE;
-		return;
+
+		return text->Status;
 	}
 
 	const size_t fileSize = GetFileSize(file);
@@ -82,18 +111,22 @@ void TextReadFile(Text* text, const char* fileName)
 	if (!buffer)
 	{
 		LOG_ERR("Ошибка выделения памяти.");
+
 		text->Status = TEXT_ERR_MEMORY;
-		return ;
+
+		return text->Status;
 	}
 
 	size_t readed = fread(buffer, sizeof(char), fileSize, file);
 
 	fclose(file);
 
-	text->Status = TEXT_ERR_NO_ERRORS;
+	text->Texts[textsSize].Data = buffer;
+	text->Texts[textsSize].Size = fileSize;
 
-	text->RawData     = buffer;
-	text->RawDataSize = fileSize;
+	text->TextsSize++;
+
+	return text->Status;
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\

@@ -49,11 +49,7 @@ static inline bool ListComparator(const ListType val1, const ListType val2)
 	if (val1.Size != val2.Size)
 		return false;
 
-	size_t maxSize = val1.Size > val2.Size? val1.Size : val2.Size;
-
-	return strncmp(val1.Data, val2.Data, maxSize) == 0;
-
-	//return memcmp(&val1, &val2, sizeof(ListType)) == 0;
+	return strncmp(val1.Data, val2.Data, val1.Size) == 0;
 }
 
 /// Размер буфера преобразования элемента в строку.
