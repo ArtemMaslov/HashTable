@@ -1,0 +1,4 @@
+﻿  HashTable\HashAsm.asm
+D:\Language C\HashTable\HashTable\HashTable\HashAsm.asm(17): error : impossible combination of address sizes
+D:\Language C\HashTable\HashTable\HashTable\HashAsm.asm(18): error : impossible combination of address sizes
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\BuildCustomizations\nasm.targets(68,5): error MSB3721: The command ""E:\Hardware\nasm\"nasm.exe -Xvc -f win32 -o "Release\HashAsm.obj"  "D:\Language C\HashTable\HashTable\HashTable\HashAsm.asm"" exited with code 1.
