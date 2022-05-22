@@ -106,14 +106,18 @@ size_t HashTable_HashCRC32_C(const ListType* element)
 	return (hash ^ 0xFFFFFFFFUL);
 }
 
-size_t HashTable_HashCRC32_Intrin(const ListType* element)
+size_t HashTable_HashCRC32_Intrin_32(const ListType* element)
 {
 	assert(element);
 
-	uint64_t crc = 0;
-	crc = _mm_crc32_u64(crc, ((uint64_t*)element)[0]);
+	uint32_t crc = 0;
+	crc = _mm_crc32_u32(crc, ((uint32_t*)element)[0]);
 
-	return _mm_crc32_u64(crc, ((uint64_t*)element)[1]);
+	crc = _mm_crc32_u32(crc, ((uint32_t*)element)[1]);
+
+	crc = _mm_crc32_u32(crc, ((uint32_t*)element)[2]);
+
+	return _mm_crc32_u32(crc, ((uint32_t*)element)[3]);
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\

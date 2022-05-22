@@ -96,7 +96,7 @@ void TestHashTable_Sheakspear()
 	if (text.Status != TEXT_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
 
-	TextParseIntoWordsDirectory(&text, "tests\\*.txt", 32);
+	TextParseIntoWordsDirectory_32(&text, "tests\\*.txt", 32);
 
 	if (text.Status != HASH_TABLE_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
@@ -163,7 +163,7 @@ void TestHashTable_OptimizationFind()
 
 	WordsArray128 words = {};
 
-	HashTableConstructor(&table, DefaultListCount, DefaultListCapacity, HashTable_HashCRC32_Intrin);
+	HashTableConstructor(&table, DefaultListCount, DefaultListCapacity, HashTable_HashCRC32_Intrin_32);
 
 	if (table.Status != HASH_TABLE_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
@@ -173,7 +173,7 @@ void TestHashTable_OptimizationFind()
 	if (text.Status != TEXT_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
 
-	TextParseIntoWordsDirectory(&text, "tests\\*.txt", MaximumWordSize);
+	TextParseIntoWordsDirectory_32(&text, "tests\\*.txt", MaximumWordSize);
 
 	if (ConvertWordsType(&words, &text) != HASH_TABLE_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
@@ -220,7 +220,7 @@ void TestHashTable_OptimizationInsertRemove()
 
 	WordsArray128 words = {};
 
-	HashTableConstructor(&table, DefaultListCount, DefaultListCapacity, HashTable_HashCRC32_Intrin);
+	HashTableConstructor(&table, DefaultListCount, DefaultListCapacity, HashTable_HashCRC32_Intrin_32);
 
 	if (table.Status != HASH_TABLE_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
@@ -230,7 +230,7 @@ void TestHashTable_OptimizationInsertRemove()
 	if (text.Status != TEXT_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
 
-	TextParseIntoWordsDirectory(&text, "tests\\*.txt", MaximumWordSize);
+	TextParseIntoWordsDirectory_32(&text, "tests\\*.txt", MaximumWordSize);
 
 	if (ConvertWordsType(&words, &text) != HASH_TABLE_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
@@ -328,7 +328,7 @@ static int ConvertWordsType(WordsArray128* words, TextAnalyzer* text)
 	{
 		__m128i word = _mm_set1_epi32(0);
 
-		memcpy(&word, textWords->Data, 16);
+		memcpy(&word, textWords->Data, textWords->Size);
 
 		wordsArray[st] = word;
 	}

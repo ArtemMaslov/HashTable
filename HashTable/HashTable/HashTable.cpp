@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "HashTable.h"
+#include "HashTable_Hash.h"
 #include "_hashTable_private.h"
 
 #include "HashTable_Logs.h"
@@ -95,7 +96,29 @@ int HashTableInsert(HashTable* table, const ListType* element)
 
 	HASH_TABLE_ASSERT_STATUS;
 
-	size_t listIndex = CalcHash(table, element);
+	size_t listIndex = 0;
+
+	__asm
+	{
+		mov	ecx, dword ptr element[0]
+
+		xor eax, eax
+		crc32 eax, dword ptr[ecx]
+
+		crc32 eax, dword ptr[ecx + 4]
+
+		crc32 eax, dword ptr[ecx + 8]
+
+		crc32 eax, dword ptr[ecx + 12]
+
+		mov ebx, table
+		mov ebx, dword ptr[ebx + 4] ; table->ListCount
+
+		xor edx, edx
+		div ebx
+
+		mov listIndex, edx
+	}
 
 	size_t elemIndex = ListFind(table->Lists + listIndex, element);
 
@@ -129,7 +152,29 @@ int HashTableRemove(HashTable* table, const ListType* element)
 
 	HASH_TABLE_ASSERT_STATUS;
 
-	size_t listIndex = CalcHash(table, element);
+	size_t listIndex = 0;
+
+	__asm
+	{
+		mov	ecx, dword ptr element[0]
+
+		xor eax, eax
+		crc32 eax, dword ptr[ecx]
+
+		crc32 eax, dword ptr[ecx + 4]
+
+		crc32 eax, dword ptr[ecx + 8]
+
+		crc32 eax, dword ptr[ecx + 12]
+
+		mov ebx, table
+		mov ebx, dword ptr[ebx + 4]; table->ListCount
+
+		xor edx, edx
+		div ebx
+
+		mov listIndex, edx
+	}
 
 	size_t elemIndex = ListFind(table->Lists + listIndex, element);
 
@@ -163,7 +208,29 @@ ListType* HashTableFind(const HashTable* table, const ListType* element)
 
 	HASH_TABLE_ASSERT_STATUS;
 
-	size_t listIndex = CalcHash(table, element);
+	size_t listIndex = 0;
+
+	__asm
+	{
+		mov	ecx, dword ptr element[0]
+
+		xor eax, eax
+		crc32 eax, dword ptr[ecx]
+
+		crc32 eax, dword ptr[ecx + 4]
+
+		crc32 eax, dword ptr[ecx + 8]
+
+		crc32 eax, dword ptr[ecx + 12]
+
+		mov ebx, table
+		mov ebx, dword ptr[ebx + 4]; table->ListCount
+
+		xor edx, edx
+		div ebx
+
+		mov listIndex, edx
+	}
 
 	size_t findIndex = ListFind(table->Lists + listIndex, element);
 

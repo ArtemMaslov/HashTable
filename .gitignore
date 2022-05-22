@@ -40,8 +40,13 @@ asm_tests2.asm
 asm_tests.asm.bak
 asm_tests2.asm.bak
 сделать.txt.bak
-*/Debug/*
+
+Release/*
+HashTable/Release/*
+
 Debug/*
+HashTable/Debug/*
+
 x64/*
 HashTable/x64/*
 

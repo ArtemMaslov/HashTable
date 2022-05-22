@@ -107,7 +107,7 @@ void TextParseIntoWords(TextAnalyzer* text, const size_t maxWordLength);
  * @param folderPath      Строка - путь к директории с файлами.
  * @param maximumWordSize Максимальная длина слова, слова большей длины игнорируются.
 */
-void TextParseIntoWordsDirectory(TextAnalyzer* text, const char* folderPath, const size_t maximumWordSize);
+void TextParseIntoWordsDirectory_32(TextAnalyzer* text, const char* folderPath, const size_t maximumWordSize);
 
 /**
  * @brief Посчитать количество слов в тексте.

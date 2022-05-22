@@ -27,14 +27,14 @@ static void TextAllocWords(TextAnalyzer* text, const size_t newCapacity);
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 
-void TextParseIntoWordsDirectory(TextAnalyzer* text, const char* folderPath, const size_t maximumWordSize)
+void TextParseIntoWordsDirectory_32(TextAnalyzer* text, const char* folderPath, const size_t maximumWordSize)
 {
 	assert(text);
 	assert(folderPath);
 
-	WIN32_FIND_DATA fileData = {};
+	WIN32_FIND_DATAA fileData = {};
 
-	HANDLE handle = FindFirstFile(folderPath, &fileData);
+	HANDLE handle = FindFirstFileA(folderPath, &fileData);
 
 	if (handle == INVALID_HANDLE_VALUE)
 	{
@@ -56,7 +56,7 @@ void TextParseIntoWordsDirectory(TextAnalyzer* text, const char* folderPath, con
 		if (text->Status != TEXT_ERR_NO_ERRORS)
 			break;
 
-	} while (FindNextFile(handle, &fileData));
+	} while (FindNextFileA(handle, &fileData));
 
 	TextParseIntoWords(text, maximumWordSize);
 
