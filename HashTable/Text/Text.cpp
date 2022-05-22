@@ -86,7 +86,7 @@ int TextReadFile(TextAnalyzer* text, const char* fileName)
 
 	if (textsSize > text->TextsCount)
 	{
-		LOG_ERR("Ïîïûòêà äîáàâèòü òåêñò â çàïîëíåííóþ ñòðóêòóðó TextAnalyzer.");
+		LOG_ERR("ÐŸÐ¾Ð¿Ñ‹Ñ‚ÐºÐ° Ð´Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ñ‚ÐµÐºÑÑ‚ Ð² Ð·Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½Ð½ÑƒÑŽ ÑÑ‚Ñ€ÑƒÐºÑ‚ÑƒÑ€Ñƒ TextAnalyzer.");
 
 		text->Status = TEXT_ERR_OVERFLOW;
 
@@ -97,7 +97,7 @@ int TextReadFile(TextAnalyzer* text, const char* fileName)
 
 	if (!file)
 	{
-		LOG_F_ERR("Îøèáêà îòêðûòèÿ ôàéëà \"%s\"", fileName);
+		LOG_F_ERR("ÐžÑˆÐ¸Ð±ÐºÐ° Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¸Ñ Ñ„Ð°Ð¹Ð»Ð° \"%s\"", fileName);
 
 		text->Status = TEXT_ERR_FILE;
 
@@ -110,7 +110,7 @@ int TextReadFile(TextAnalyzer* text, const char* fileName)
 
 	if (!buffer)
 	{
-		LOG_ERR("Îøèáêà âûäåëåíèÿ ïàìÿòè.");
+		LOG_ERR("ÐžÑˆÐ¸Ð±ÐºÐ° Ð²Ñ‹Ð´ÐµÐ»ÐµÐ½Ð¸Ñ Ð¿Ð°Ð¼ÑÑ‚Ð¸.");
 
 		text->Status = TEXT_ERR_MEMORY;
 

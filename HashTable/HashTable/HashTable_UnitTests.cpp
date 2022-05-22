@@ -15,45 +15,45 @@
 
 struct WordsArray128
 {
-	// Массив слов.
+	// РњР°СЃСЃРёРІ СЃР»РѕРІ.
 	__m128i* Data;
 
-	// Размер массива
+	// Р Р°Р·РјРµСЂ РјР°СЃСЃРёРІР°
 	size_t Size;
 };
 
 const size_t TextsCount = 42;
 
 /**
- * @brief Добавить все слова из TextAnalyzer (текст должен быть предварительно разбит на слова).
+ * @brief Р”РѕР±Р°РІРёС‚СЊ РІСЃРµ СЃР»РѕРІР° РёР· TextAnalyzer (С‚РµРєСЃС‚ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕ СЂР°Р·Р±РёС‚ РЅР° СЃР»РѕРІР°).
  *
- * @param table Указатель на хеш-таблицу.
- * @param words Указатель на массив слов.
+ * @param table РЈРєР°Р·Р°С‚РµР»СЊ РЅР° С…РµС€-С‚Р°Р±Р»РёС†Сѓ.
+ * @param words РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РјР°СЃСЃРёРІ СЃР»РѕРІ.
 */
 static void HashTableLoadWordsIntoTable(HashTable* table, WordsArray128* words);
 
 /**
- * @brief Переводит слова из структуры Text в массив __m128i.
+ * @brief РџРµСЂРµРІРѕРґРёС‚ СЃР»РѕРІР° РёР· СЃС‚СЂСѓРєС‚СѓСЂС‹ Text РІ РјР°СЃСЃРёРІ __m128i.
  * 
- * @param words Указатель на массив слов.
- * @param text  Указатель на структуру TextAnalyzer.
+ * @param words РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РјР°СЃСЃРёРІ СЃР»РѕРІ.
+ * @param text  РЈРєР°Р·Р°С‚РµР»СЊ РЅР° СЃС‚СЂСѓРєС‚СѓСЂСѓ TextAnalyzer.
  * 
  * @return HashTableError.
 */
 static int ConvertWordsType(WordsArray128* words, TextAnalyzer* text);
 
 /**
- * @brief Очищает массив слов __m128i.
+ * @brief РћС‡РёС‰Р°РµС‚ РјР°СЃСЃРёРІ СЃР»РѕРІ __m128i.
  * 
- * @param words Указатель на массив слов.
+ * @param words РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РјР°СЃСЃРёРІ СЃР»РѕРІ.
 */
 static void WordsArrayDestructor(WordsArray128* words);
 
 /**
- * @brief Добавить все слова из текстов в хеш-таблицу.
+ * @brief Р”РѕР±Р°РІРёС‚СЊ РІСЃРµ СЃР»РѕРІР° РёР· С‚РµРєСЃС‚РѕРІ РІ С…РµС€-С‚Р°Р±Р»РёС†Сѓ.
  * 
- * @param table Указатель на хеш-таблицу.
- * @param text  Указатель на структуру TextAnalyzer.
+ * @param table РЈРєР°Р·Р°С‚РµР»СЊ РЅР° С…РµС€-С‚Р°Р±Р»РёС†Сѓ.
+ * @param text  РЈРєР°Р·Р°С‚РµР»СЊ РЅР° СЃС‚СЂСѓРєС‚СѓСЂСѓ TextAnalyzer.
 */
 static void HashTableLoadWordsIntoTable(HashTable* table, TextAnalyzer* text);
 

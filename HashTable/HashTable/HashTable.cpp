@@ -49,8 +49,8 @@ int HashTableConstructor(HashTable*   table,
 	{
 		if (ListConstructor(table->Lists + st, listCapacity) != LIST_ERR_NO_ERRORS)
 		{
-			LOG_F_HASH_TABLE_ERR("Ошибка создания массива списков в конструкторе. "
-								 "Создано списков %zd.", st);
+			LOG_F_HASH_TABLE_ERR("РћС€РёР±РєР° СЃРѕР·РґР°РЅРёСЏ РјР°СЃСЃРёРІР° СЃРїРёСЃРєРѕРІ РІ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРµ. "
+								 "РЎРѕР·РґР°РЅРѕ СЃРїРёСЃРєРѕРІ %zd.", st);
 
 			table->ListCount = st;
 
@@ -108,7 +108,7 @@ int HashTableInsert(HashTable* table, const ListType* element)
 
 	if (ListAddElemAfter(table->Lists + listIndex, element, table->Lists[listIndex].Tail) != LIST_ERR_NO_ERRORS)
 	{
-		LOG_F_HASH_TABLE_ERR("Ошибка добавления элемента в список. "
+		LOG_F_HASH_TABLE_ERR("РћС€РёР±РєР° РґРѕР±Р°РІР»РµРЅРёСЏ СЌР»РµРјРµРЅС‚Р° РІ СЃРїРёСЃРѕРє. "
 							 "listIndex = %zd. "
 							 "wordData = \"%16s\"", listIndex, (char*)element);
 
@@ -142,7 +142,7 @@ int HashTableRemove(HashTable* table, const ListType* element)
 
 	if (ListRemoveElem(table->Lists + listIndex, elemIndex) != LIST_ERR_NO_ERRORS)
 	{
-		LOG_F_HASH_TABLE_ERR("Ошибка удаления элемента из списка. "
+		LOG_F_HASH_TABLE_ERR("РћС€РёР±РєР° СѓРґР°Р»РµРЅРёСЏ СЌР»РµРјРµРЅС‚Р° РёР· СЃРїРёСЃРєР°. "
 							 "listIndex = %zd. "
 							 "wordData = \"%16s\"", listIndex, (char*)element);
 

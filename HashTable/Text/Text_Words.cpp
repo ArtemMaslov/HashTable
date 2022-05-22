@@ -17,10 +17,10 @@
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 
 /**
- * @brief Âûäåëèòü äîïîëíèòåëüíóþ ïàìÿòü äëÿ ìàññèâà ñëîâ.
+ * @brief Ð’Ñ‹Ð´ÐµÐ»Ð¸Ñ‚ÑŒ Ð´Ð¾Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÐµÐ»ÑŒÐ½ÑƒÑŽ Ð¿Ð°Ð¼ÑÑ‚ÑŒ Ð´Ð»Ñ Ð¼Ð°ÑÑÐ¸Ð²Ð° ÑÐ»Ð¾Ð².
  * 
- * @param text        Óêàçàòåëü íà ñòðóêòóðó TextAnalyzer.
- * @param newCapacity Ðàçìåð, êîòîðûé òðåáóåòñÿ âûäåëèòü.
+ * @param text        Ð£ÐºÐ°Ð·Ð°Ñ‚ÐµÐ»ÑŒ Ð½Ð° ÑÑ‚Ñ€ÑƒÐºÑ‚ÑƒÑ€Ñƒ TextAnalyzer.
+ * @param newCapacity Ð Ð°Ð·Ð¼ÐµÑ€, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¹ Ñ‚Ñ€ÐµÐ±ÑƒÐµÑ‚ÑÑ Ð²Ñ‹Ð´ÐµÐ»Ð¸Ñ‚ÑŒ.
 */
 static void TextAllocWords(TextAnalyzer* text, const size_t newCapacity);
 
@@ -38,7 +38,7 @@ void TextParseIntoWordsDirectory(TextAnalyzer* text, const char* folderPath, con
 
 	if (handle == INVALID_HANDLE_VALUE)
 	{
-		LOG_ERR("Íå óäà¸òñÿ íàéòè òåêñòîâûå ôàéëû â ïàïêå tests");
+		LOG_ERR("ÐÐµ ÑƒÐ´Ð°Ñ‘Ñ‚ÑÑ Ð½Ð°Ð¹Ñ‚Ð¸ Ñ‚ÐµÐºÑÑ‚Ð¾Ð²Ñ‹Ðµ Ñ„Ð°Ð¹Ð»Ñ‹ Ð² Ð¿Ð°Ð¿ÐºÐµ tests");
 
 		text->Status |= TEXT_ERR_FILE;
 

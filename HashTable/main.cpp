@@ -15,8 +15,6 @@ int main(int argc, char* argv[])
 
 	LogsConstructor();
 
-	__asm(pop rax)
-
 	//TestHashTable_Sheakspear();
 
 	TestHashTable_OptimizationFind();

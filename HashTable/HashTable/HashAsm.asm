@@ -20,7 +20,7 @@ HashTable_HashCRC32_Asm:
 		
 		lea	r10, [rel Crc32Table] ; r10 = address of Crc32Table
 		
-		; for (size_t st =0; data[st] && st < 16; st++)
+		; for (size_t st = 0; data[st] && st < 16; st++)
 .forCondition:
 
 		cmp	byte [r8], 0 ; if (data[st] == 0) return;

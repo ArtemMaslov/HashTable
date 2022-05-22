@@ -20,24 +20,24 @@
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 
 /**
- * @brief Структура файла логов.
+ * @brief РЎС‚СЂСѓРєС‚СѓСЂР° С„Р°Р№Р»Р° Р»РѕРіРѕРІ.
 */
 struct LogFile
 {
-    /// Указатель на файл.
+    /// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° С„Р°Р№Р».
     FILE* file;
-    /// Сигнатура файла.
+    /// РЎРёРіРЅР°С‚СѓСЂР° С„Р°Р№Р»Р°.
     LogSignature sig;
-    /// Заголовок.
+    /// Р—Р°РіРѕР»РѕРІРѕРє.
     const char* caption;
-    /// Имя файла.
+    /// РРјСЏ С„Р°Р№Р»Р°.
     const char* fileName;
 };
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 
-/// Сообщения о уровне логгирования.
+/// РЎРѕРѕР±С‰РµРЅРёСЏ Рѕ СѓСЂРѕРІРЅРµ Р»РѕРіРіРёСЂРѕРІР°РЅРёСЏ.
 const char* LogLevelMessages[] =
 {
     "TRACE",
@@ -57,9 +57,9 @@ bool         LogFilesClosed  = false;
 
 int          TextOffset      = 0;
 
-/// Номер записанной в файл логов строки.
-/// Общий для всех файлов.
-/// Так можно отследить порядок сообщений в разных файлах.
+/// РќРѕРјРµСЂ Р·Р°РїРёСЃР°РЅРЅРѕР№ РІ С„Р°Р№Р» Р»РѕРіРѕРІ СЃС‚СЂРѕРєРё.
+/// РћР±С‰РёР№ РґР»СЏ РІСЃРµС… С„Р°Р№Р»РѕРІ.
+/// РўР°Рє РјРѕР¶РЅРѕ РѕС‚СЃР»РµРґРёС‚СЊ РїРѕСЂСЏРґРѕРє СЃРѕРѕР±С‰РµРЅРёР№ РІ СЂР°Р·РЅС‹С… С„Р°Р№Р»Р°С….
 size_t       AbsoluteLogLineIndex = 0;
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
@@ -79,11 +79,11 @@ int LogsConstructor()
 
     int status = LOG_NO_ERRORS;
 
-    status |= LogConstructor(LOGS_FOLDER "log_general.html",    "Общий лог программы.",    LOG_SIG_GENERAL);
+    status |= LogConstructor(LOGS_FOLDER "log_general.html",    "РћР±С‰РёР№ Р»РѕРі РїСЂРѕРіСЂР°РјРјС‹.",    LOG_SIG_GENERAL);
                                                              
-    status |= LogConstructor(LOGS_FOLDER "log_hash_table.html", "Лог работы хеш-таблицы.", LOG_SIG_HASH_TABLE);
+    status |= LogConstructor(LOGS_FOLDER "log_hash_table.html", "Р›РѕРі СЂР°Р±РѕС‚С‹ С…РµС€-С‚Р°Р±Р»РёС†С‹.", LOG_SIG_HASH_TABLE);
 
-    status |= LogConstructor(LOGS_FOLDER "log_list.html", "Лог работы двусвязного списка.", LOG_SIG_LIST);
+    status |= LogConstructor(LOGS_FOLDER "log_list.html", "Р›РѕРі СЂР°Р±РѕС‚С‹ РґРІСѓСЃРІСЏР·РЅРѕРіРѕ СЃРїРёСЃРєР°.", LOG_SIG_LIST);
 
     atexit(LogsDestructor);
 
@@ -106,7 +106,7 @@ static int LogConstructor(const char* logFileName, const char* caption, const Lo
     if (!file)
     {
         LogFLine(LOG_LVL_ERROR, LOG_SIG_GENERAL, true, __FUNCSIG__, __FILE__, __LINE__,
-                 "Ошибка открытия файла с логами. FileName = \"%s\"", logFileName);
+                 "РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ С„Р°Р№Р»Р° СЃ Р»РѕРіР°РјРё. FileName = \"%s\"", logFileName);
 
         return LOG_ERR_FILE_OPENING;
     }
