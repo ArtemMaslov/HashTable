@@ -30,7 +30,7 @@ HashTable_HashCRC32_Asm:
 		jae	.endFor
 
 		; for body:
-		
+						
 		movzx rcx, byte [r8] ; rcx = *data
 		
 		xor	rcx, rax ; rcx = (rax ^ *data++)

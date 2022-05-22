@@ -163,7 +163,7 @@ void TestHashTable_OptimizationFind()
 
 	WordsArray128 words = {};
 
-	HashTableConstructor(&table, DefaultListCount, DefaultListCapacity, HashTable_HashCRC32_Intrin);
+	HashTableConstructor(&table, DefaultListCount, DefaultListCapacity, HashTable_HashCRC32_Asm);
 
 	if (table.Status != HASH_TABLE_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
@@ -220,7 +220,7 @@ void TestHashTable_OptimizationInsertRemove()
 
 	WordsArray128 words = {};
 
-	HashTableConstructor(&table, DefaultListCount, DefaultListCapacity, HashTable_HashCRC32_Intrin);
+	HashTableConstructor(&table, DefaultListCount, DefaultListCapacity, HashTable_HashCRC32_Asm);
 
 	if (table.Status != HASH_TABLE_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
@@ -328,7 +328,7 @@ static int ConvertWordsType(WordsArray128* words, TextAnalyzer* text)
 	{
 		__m128i word = _mm_set1_epi32(0);
 
-		memcpy(&word, textWords->Data, 16);
+		memcpy(&word, textWords->Data, textWords->Size);
 
 		wordsArray[st] = word;
 	}
