@@ -112,4 +112,7 @@
       <Filter>Source Files\HashTable</Filter>
     </NASM>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="HashTable\HashAsm.asm.vsspell" />
+  </ItemGroup>
 </Project>

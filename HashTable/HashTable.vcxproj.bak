@@ -150,6 +150,11 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+<<<<<<< HEAD
+=======
+      <LargeAddressAware>
+      </LargeAddressAware>
+>>>>>>> assembly_optimization
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

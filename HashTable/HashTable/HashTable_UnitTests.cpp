@@ -328,7 +328,7 @@ static int ConvertWordsType(WordsArray128* words, TextAnalyzer* text)
 	{
 		__m128i word = _mm_set1_epi32(0);
 
-		memcpy(&word, textWords->Data, 16);
+		memcpy(&word, textWords->Data, textWords->Size);
 
 		wordsArray[st] = word;
 	}

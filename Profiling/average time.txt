@@ -23,6 +23,11 @@ find hash optimization releaseMax
 2. 19 842 мс
 3. 20 495 мс
 
+find asm optimization release
+1. 32 179 мс
+1. 32 717 мс
+1. 32 767 мс
+
 
 
 insert-remove unoptimized release
@@ -49,3 +54,8 @@ insert-remove hash optimization releaseMax
 1. 43 781 мс
 2. 43 878 мс
 3. 43 446 мс
+
+insert-remove asm optimization release
+1. 57 453 мс
+1. 57 739 мс
+1. 57 389 мс

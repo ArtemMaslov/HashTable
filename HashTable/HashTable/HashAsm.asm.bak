@@ -9,7 +9,7 @@ section .text
 ;
 ; Return: eax - calculated CRC32.
 ;
-; Destr: rax, rcx, rdx, r8, r9, r10, r11.
+; Destr: rax
 ;---------------------------------------------------------------
 HashTable_HashCRC32_Asm:
 		mov	r11d, -1  ; r11d = 0xFFFFFFFF;
