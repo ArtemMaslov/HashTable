@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "HashTable.h"
+#include "HashTable_Hash.h"
 #include "_hashTable_private.h"
 
 #include "HashTable_Logs.h"

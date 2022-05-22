@@ -15,11 +15,13 @@ int main(int argc, char* argv[])
 
 	LogsConstructor();
 
+	__asm(pop rax)
+
 	//TestHashTable_Sheakspear();
 
-	//TestHashTable_OptimizationFind();
+	TestHashTable_OptimizationFind();
 
-	TestHashTable_OptimizationInsertRemove();
+	//TestHashTable_OptimizationInsertRemove();
 
 	LogsDestructor();
 }

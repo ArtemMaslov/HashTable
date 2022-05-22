@@ -78,8 +78,6 @@ size_t HashTable_HashCRC32_Intrin(const ListType* element);
 */
 extern "C" size_t HashTable_HashCRC32_Asm(const ListType* element);
 
-size_t Crc32(const ListType* element);
-
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 
