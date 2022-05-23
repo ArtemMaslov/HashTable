@@ -79,7 +79,7 @@ void TestHashTable_Sheakspear()
 		HashTable_HashLength,
 		HashTable_HashCharSum,
 		HashTable_HashRor,
-		HashTable_HashCRC32_C
+		HashTable_HashCRC32_Intrin
 	};
 
 	size_t* hash_data = nullptr;
@@ -96,7 +96,7 @@ void TestHashTable_Sheakspear()
 	if (text.Status != TEXT_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
 
-	TextParseIntoWordsDirectory(&text, "tests\\*.txt", 32);
+	TextParseIntoWordsDirectory(&text, "tests\\*.txt", MaximumWordSize);
 
 	if (text.Status != HASH_TABLE_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
@@ -104,7 +104,7 @@ void TestHashTable_Sheakspear()
 	if (ConvertWordsType(&words, &text) != HASH_TABLE_ERR_NO_ERRORS)
 		CLEAR_AND_RETURN;
 
-	outFile = fopen("hash_statistic_list.csv", "w");
+	outFile = fopen("hash_statistic_list_15013.csv", "w");
 
 	if (!outFile)
 		CLEAR_AND_RETURN;
@@ -328,7 +328,7 @@ static int ConvertWordsType(WordsArray128* words, TextAnalyzer* text)
 	{
 		__m128i word = _mm_set1_epi32(0);
 
-		memcpy(&word, textWords->Data, textWords->Size);
+		memcpy(&word, textWords[st].Data, textWords[st].Size);
 
 		wordsArray[st] = word;
 	}
