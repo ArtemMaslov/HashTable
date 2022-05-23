@@ -8,9 +8,9 @@
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***\\\
 
 /// Стандартный размер хеш-таблицы - количество списков в ней.
-const size_t DefaultListCount = 1500;
+const size_t DefaultListCount = 15013;
 /// Стандартная вместительность списков.
-const size_t DefaultListCapacity = 1000;
+const size_t DefaultListCapacity = 16;
 /// Стандартное количество слов для структуры TextAnalyzer.
 const size_t DefaultWordsCapacity = 1000000;
 
